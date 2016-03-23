@@ -21,7 +21,12 @@ public class FruitAdapter extends ArrayAdapter<Fruit> {
 
     public View getView(int positoin, View convertView, ViewGroup parent){
         Fruit fruit = getItem(positoin);
-        View view = LayoutInflater.from(getContext()).inflate(resourceId, null);
+        View view;
+        if (convertView == null){
+            view = LayoutInflater.from(getContext()).inflate(resourceId,null);
+        }else {
+            view = convertView;
+        }
         ImageView fruitImage = (ImageView) view.findViewById(R.id.fruitImage);
         TextView fruitName = (TextView) view.findViewById(R.id.fruitName);
         fruitImage.setImageResource(fruit.getImageId());
