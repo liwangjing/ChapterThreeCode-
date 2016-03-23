@@ -1,6 +1,7 @@
 package com.example.jing.chapterthree;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,16 +23,26 @@ public class FruitAdapter extends ArrayAdapter<Fruit> {
     public View getView(int positoin, View convertView, ViewGroup parent){
         Fruit fruit = getItem(positoin);
         View view;
+        ViewHolder viewHolder;
         if (convertView == null){
             view = LayoutInflater.from(getContext()).inflate(resourceId,null);
+            viewHolder = new ViewHolder();
+            viewHolder.fruitImage = (ImageView) view.findViewById(R.id.fruitImage);
+            viewHolder.fruitName = (TextView) view.findViewById(R.id.fruitName);
+            view.setTag(viewHolder);
         }else {
             view = convertView;
+            viewHolder = (ViewHolder) view.getTag();
         }
-        ImageView fruitImage = (ImageView) view.findViewById(R.id.fruitImage);
-        TextView fruitName = (TextView) view.findViewById(R.id.fruitName);
-        fruitImage.setImageResource(fruit.getImageId());
-        fruitName.setText(fruit.getName());
+
+        viewHolder.fruitImage.setImageResource(fruit.getImageId());
+        viewHolder.fruitName.setText(fruit.getName());
+
         return view;
     }
 
+    class ViewHolder {
+        ImageView fruitImage;
+        TextView fruitName;
+    }
 }
